@@ -1,26 +1,36 @@
 import { useState } from 'react'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import CropPredictor from './components/CropPredictor'
+import AuthSection from './components/AuthSection'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showAuth, setShowAuth] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <Navbar onAuthClick={() => {
+        setShowAuth(true)
+        const el = document.getElementById('auth')
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      }} />
+
+      <main className="flex-1">
+        <Hero />
+        <CropPredictor />
+        <AuthSection />
+      </main>
+
+      <footer className="border-t">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between text-sm text-gray-600">
+          <p>© {new Date().getFullYear()} AgriSense. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="#about" className="hover:text-gray-900">About</a>
+            <a href="#predict" className="hover:text-gray-900">Predict</a>
+            <a href="#auth" className="hover:text-gray-900">Account</a>
+          </div>
         </div>
-      </div>
+      </footer>
     </div>
   )
 }
